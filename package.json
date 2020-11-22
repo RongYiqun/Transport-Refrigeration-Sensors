@@ -1,0 +1,23 @@
+{
+  "name": "transport-refrigeration-sensors",
+  "version": "1.0.0",
+  "description": "Build a simple model for temperature monitoring system on a refrigeration truck",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RongYiqun/Transport-Refrigeration-Sensors.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RongYiqun/Transport-Refrigeration-Sensors/issues"
+  },
+  "homepage": "https://github.com/RongYiqun/Transport-Refrigeration-Sensors#readme",
+  "dependencies": {
+    "jest": "^26.6.3",
+    "uuid": "^8.3.1"
+  }
+}
