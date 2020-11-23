@@ -9,7 +9,6 @@ describe("Container object", () => {
     const newTemp = 7;
     container.updateTemperature(newTemp);
     expect(container.temperature).toBe(newTemp);
-    expect(container.monitor).toBe(null);
   });
 
   it("updateTemperature with monitor", () => {
@@ -37,7 +36,10 @@ describe("Container object", () => {
       1,
       ADD_CONTAINER,
       id,
-      new Container("beer1", id, 4, 6, 5)
+      "beer1",
+      4,
+      6,
+      5
     );
 
     expect(currentEventEmitter_emit).toHaveBeenNthCalledWith(
@@ -50,23 +52,19 @@ describe("Container object", () => {
 
   it("loadedTo with previous monitor", () => {
     const currentEventEmitter = new EventEmitter();
-    const previousEventEmitter = new EventEmitter();
     const id = "d9a5ddde-0254-49df-8d16-8dc614f992ee";
     const container = new Container("beer1", id, 4, 6, 5);
-    container.monitor = previousEventEmitter;
     const currentEventEmitter_emit = jest.spyOn(currentEventEmitter, "emit");
-    const previousEventEmitter_emit = jest.spyOn(previousEventEmitter, "emit");
     container.loadedTo(currentEventEmitter);
-    expect(previousEventEmitter_emit).toHaveBeenCalledWith(
-      REMOVE_CONTAINER,
-      id
-    );
 
     expect(currentEventEmitter_emit).toHaveBeenNthCalledWith(
       1,
       ADD_CONTAINER,
       id,
-      new Container("beer1", id, 4, 6, 5)
+      "beer1",
+      4,
+      6,
+      5
     );
 
     expect(currentEventEmitter_emit).toHaveBeenNthCalledWith(

@@ -23,9 +23,21 @@ class Monitor extends EventEmitter {
       }
     });
 
-    this.on(eventType.ADD_CONTAINER, function (containerId, container) {
+    this.on(eventType.ADD_CONTAINER, function (
+      containerId,
+      name,
+      minTemperature,
+      maxTemperature,
+      temperature
+    ) {
       if (!(containerId in this.containers)) {
-        this.containers[containerId] = container;
+        this.containers[containerId] = {
+          id: containerId,
+          name,
+          minTemperature,
+          maxTemperature,
+          temperature,
+        };
       } else {
         console.log(`container with id ${containerId} already exist`);
       }
@@ -42,11 +54,10 @@ class Monitor extends EventEmitter {
 
   showContainerTemperature() {
     const tempInfo = {};
-    for (let key of Object.keys(this.containers)) {
-      const currentContainer = this.containers[key];
+    for (let [key, value] of Object.entries(this.containers)) {
       tempInfo[key] = {
-        name: currentContainer.name,
-        temperature: currentContainer.temperature,
+        name: value.name,
+        temperature: value.temperature,
       };
     }
     return tempInfo;

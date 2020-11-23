@@ -8,7 +8,6 @@ class Container {
     this.maxTemperature = tempMax;
     this.minTemperature = tempMin;
     this.temperature = temperature;
-    this.monitor = null;
   }
 
   updateTemperature(temperature) {
@@ -17,13 +16,16 @@ class Container {
   }
 
   loadedTo(monitor) {
-    if (this.monitor) {
-      this.monitor.emit(REMOVE_CONTAINER, this.id);
-      this.monitor = null;
-    }
-    monitor.emit(ADD_CONTAINER, this.id, { ...this });
-    monitor.emit(CHECK_TEMPERATURE, this.id, this.temperature);
     this.monitor = monitor;
+    this.monitor.emit(
+      ADD_CONTAINER,
+      this.id,
+      this.name,
+      this.minTemperature,
+      this.maxTemperature,
+      this.temperature
+    );
+    this.monitor.emit(CHECK_TEMPERATURE, this.id, this.temperature);
   }
 
   unloaded() {

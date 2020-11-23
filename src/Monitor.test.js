@@ -30,9 +30,14 @@ describe("monitor", () => {
   it("add_container event is fired, addition success", () => {
     const monitor = new Monitor();
     const id = "d9a5ddde-0254-49df-8d16-8dc614f992ee";
-    const container = new Container("beer1", id, 4, 6, 5);
-    monitor.emit(ADD_CONTAINER, id, container);
-    expect(monitor.containers[id]).toBe(container);
+    monitor.emit(ADD_CONTAINER, id, "beer1", 4, 6, 5);
+    expect(monitor.containers[id]).toEqual({
+      id,
+      name: "beer1",
+      minTemperature: 4,
+      maxTemperature: 6,
+      temperature: 5,
+    });
   });
 
   it("add_container event is fired, addition fail", () => {
